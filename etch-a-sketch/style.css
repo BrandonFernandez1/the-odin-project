@@ -2,6 +2,8 @@ body {
     background-color: skyblue;
     display: flex;
     justify-content: center;
+    flex-direction: column;
+    align-items: center;
 }
 
 .container {
@@ -20,6 +22,6 @@ body {
     background-color: white;
 }
 
-.paint {
+.colour {
     background-color: black;
 }
