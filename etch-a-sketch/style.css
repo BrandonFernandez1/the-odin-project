@@ -1,0 +1,25 @@
+body {
+    background-color: skyblue;
+    display: flex;
+    justify-content: center;
+}
+
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    height: 80vh;
+    width: 80vh;
+    justify-content: center;
+    border: solid navy;
+}
+
+.grid-square {
+    display: flex;
+    height: calc(100%/16);
+    width: calc(100%/16);
+    background-color: white;
+}
+
+.paint {
+    background-color: black;
+}
