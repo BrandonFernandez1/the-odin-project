@@ -11,7 +11,7 @@
         <h1>My Library!!</h1>
     </div>
 
-    <button class="add-book">Add Book</button>
+    <button id="add-book">Add Book</button>
 
     <table id="my-table">
         <tr>
@@ -22,6 +22,31 @@
             <th>Remove</th>
         </tr>
     </table>
+
+    <dialog id="library-modal">
+        <h1>Add a new book</h1>
+        <form>
+            <label for="title">Title:</label>
+            <input name="title">
+            <br>
+
+            <label for="author">Author:</label>
+            <input type="text" name="author">
+            <br>
+
+            <label for="year">Year:</label>
+            <input type="number" name="year">
+            <br>
+
+            <label>Status:</label>
+            <select>
+                <option>Read</option>
+                <option>Not Read</option>
+            </select>
+        </form>
+        <button id="cancel-modal">Cancel</button>
+        <button id="confirm-modal">Confirm</button>
+    </dialog>
 
     <script src="./script.js"></script>
 </body>

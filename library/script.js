@@ -43,12 +43,34 @@ function addBooktoLibrary(books) {
     document.body.appendChild(tableBody);
 }
 
-function addBookButton() {
-    const addBook = document.querySelector(".add-book");
 
-    addBook.addEventListener("click", () => {
-        
-    })
-}
+const openModalButton = document.querySelector("#add-book");
+const dialogWindow = document.querySelector("#library-modal")
+const cancelModalSubmissionButton = document.querySelector("#cancel-modal")
+const confirmModalSubmissionButton = document.querySelector("#confirm-modal");
+
+openModalButton.addEventListener("click", () => {
+    //Function that opens the modal
+    dialogWindow.showModal();
+})
+
+cancelModalSubmissionButton.addEventListener("click", () => {
+    dialogWindow.close();
+})
+
+confirmModalSubmissionButton.addEventListener("click", () => {
+    let userInfo = [];
+
+    const bookInformationInputs = document.querySelectorAll("input");
+    const readStatus = document.querySelector("select");
+    bookInformationInputs.forEach((input) => {userInfo.push(input.value)});
+    userInfo.push(readStatus.value);
+
+    console.log(userInfo);
+
+    // const newBook = new Book(userInfo[0], userInfo[1], userInfo[2], userInfo[3]);
+    // addBooktoLibrary(newBook);
+    // Why ain't it iterable tho it's literally one thing just iterate yourself????/
+})
 
 addBooktoLibrary(myLibrary);
