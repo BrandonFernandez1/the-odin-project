@@ -3,6 +3,41 @@ const myLibrary = [];
 myLibrary.push(new Book("The Hobbit", "J.R.R. Tolkien", 1937, "No"));
 myLibrary.push(new Book("Matilda", "Roald Dahl", 1988, "No"));
 
+const openModalButton = document.querySelector("#add-book");
+const dialogWindow = document.querySelector("#library-modal")
+const cancelModalSubmissionButton = document.querySelector("#cancel-modal")
+const confirmModalSubmissionButton = document.querySelector("#confirm-modal");
+
+openModalButton.addEventListener("click", () => {
+    dialogWindow.showModal();
+})
+
+cancelModalSubmissionButton.addEventListener("click", () => {
+    dialogWindow.close();
+})
+
+confirmModalSubmissionButton.addEventListener("click", () => {
+    let userInfo = [];
+    let bookArray = []; //I need to add the to an array because I used a "for (const ... of ...)" loop.
+
+    const bookInformationInputs = document.querySelectorAll("input");
+    const readStatus = document.querySelector("select");
+    bookInformationInputs.forEach((input) => {
+        if (input.value == "") userInfo.push(' ');
+        else userInfo.push(input.value);
+    });
+    userInfo.push(readStatus.value);
+
+    const newBook = new Book(userInfo[0], userInfo[1], userInfo[2], userInfo[3]);
+    bookArray.push(newBook);
+    addBooktoLibrary(bookArray);
+
+    bookInformationInputs.forEach((input) => {input.value = ""});
+    dialogWindow.close();
+})
+
+addBooktoLibrary(myLibrary);
+
 function Book(title, author, year, read) {
     this.title = title;
     this.author = author;
@@ -33,8 +68,17 @@ function addBooktoLibrary(books) {
         row.appendChild(readCell);
 
         const removeButtonCell = document.createElement("td");
-        const removeButton = document.createElement("buttton");
+        const removeButton = document.createElement("button");
         removeButton.textContent = "X";
+        removeButton.classList.add("remove-button");
+
+        removeButton.addEventListener("click", (event) => {
+            const buttonClicked = event.target;
+            console.log(buttonClicked);
+            const row = buttonClicked.closest("tr");
+            row.remove();
+        })
+
         removeButtonCell.appendChild(removeButton);
         row.appendChild(removeButtonCell);
 
@@ -42,35 +86,3 @@ function addBooktoLibrary(books) {
     }
     document.body.appendChild(tableBody);
 }
-
-
-const openModalButton = document.querySelector("#add-book");
-const dialogWindow = document.querySelector("#library-modal")
-const cancelModalSubmissionButton = document.querySelector("#cancel-modal")
-const confirmModalSubmissionButton = document.querySelector("#confirm-modal");
-
-openModalButton.addEventListener("click", () => {
-    //Function that opens the modal
-    dialogWindow.showModal();
-})
-
-cancelModalSubmissionButton.addEventListener("click", () => {
-    dialogWindow.close();
-})
-
-confirmModalSubmissionButton.addEventListener("click", () => {
-    let userInfo = [];
-
-    const bookInformationInputs = document.querySelectorAll("input");
-    const readStatus = document.querySelector("select");
-    bookInformationInputs.forEach((input) => {userInfo.push(input.value)});
-    userInfo.push(readStatus.value);
-
-    console.log(userInfo);
-
-    // const newBook = new Book(userInfo[0], userInfo[1], userInfo[2], userInfo[3]);
-    // addBooktoLibrary(newBook);
-    // Why ain't it iterable tho it's literally one thing just iterate yourself????/
-})
-
-addBooktoLibrary(myLibrary);
