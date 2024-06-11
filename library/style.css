@@ -64,7 +64,7 @@ thead tr {
 }
 
 tbody tr:nth-child(even) {
-    background-color: yellow;
+    background-color: rgb(235, 235, 235);
 }
 
 td button {
@@ -79,3 +79,28 @@ td button {
 td button:hover {
     background-color: #ff3333;
 }
+
+/* Basic button styles */
+button {
+    padding: 10px 20px; /* Adds some space inside the button */
+    font-size: 16px; /* Sets a readable font size */
+    color: white; /* Text color */
+    background-color: #007BFF; /* Background color */
+    border: none; /* Removes the default border */
+    border-radius: 5px; /* Adds rounded corners */
+    cursor: pointer; /* Changes cursor to pointer on hover */
+    transition: background-color 0.3s ease; /* Smooth transition for background color */
+    margin: 10px;
+}
+
+/* Hover effect */
+button:hover {
+    background-color: #0056b3; /* Darker shade on hover */
+}
+
+/* Focus effect for accessibility */
+button:focus {
+    outline: none; /* Removes default focus outline */
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.5); /* Adds a custom focus outline */
+}
+

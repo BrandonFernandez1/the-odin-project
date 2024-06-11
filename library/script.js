@@ -10,6 +10,8 @@ const confirmModalSubmissionButton = document.querySelector("#confirm-modal");
 
 openModalButton.addEventListener("click", () => {
     dialogWindow.showModal();
+    const bookInformationInputs = document.querySelectorAll("input");
+    bookInformationInputs.forEach((input) => {input.value = ""});
 })
 
 cancelModalSubmissionButton.addEventListener("click", () => {
@@ -46,7 +48,7 @@ function Book(title, author, year, read) {
 }
 
 function addBooktoLibrary(books) {
-    const tableBody = document.querySelector("table");
+    const tableBody = document.querySelector("tbody");
 
     for (const book of books) {
         const row = document.createElement("tr");
@@ -84,5 +86,4 @@ function addBooktoLibrary(books) {
 
         tableBody.appendChild(row);
     }
-    document.body.appendChild(tableBody);
 }
