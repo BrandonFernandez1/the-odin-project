@@ -1,0 +1,21 @@
+#playing-board {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    width: 300px;
+    height: 300px;
+    border: 2px solid #000;
+}
+
+.board-cell {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(255, 255, 255);
+    border: 1px solid #ddd;
+    font-size: 24px;
+}
+
+.board-cell:hover {
+    background-color: #f0f0f0;
+}
