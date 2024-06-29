@@ -8,14 +8,14 @@
 </head>
 <body>
     <div id="player-info">
-        <div id="player-1-info">
+        <div id="player-1-info" class="player-div">
             Player 1
-            <div class="player-1-symbol"></div>
+            <div class="player-1-symbol">X</div>
         </div>
 
-        <div id="player-2-info">
+        <div id="player-2-info" class="player-div">
             Player 2
-            <div class="player-2-symbol"></div>
+            <div class="player-2-symbol">O</div>
         </div>
     </div>
 
@@ -32,8 +32,14 @@
     </div>
 
     <div class="button-section">
-        <button>Reset</button>
+        <button id="restart">Reset</button>
     </div>
+
+    <dialog id="winner-popup">
+        <div id="winner-header">WINNER</div>
+        <div id="winner-name"></div>
+        <div id="winner-symbol"></div>
+    </dialog>
     <script src="script.js"></script>
 </body>
 </html>

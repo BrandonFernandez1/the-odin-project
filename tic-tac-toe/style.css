@@ -1,3 +1,11 @@
+body {
+    display: flex;
+    justify-content: center;
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 20px;
+    padding-top: 100px;
+}
+
 #playing-board {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -18,4 +26,16 @@
 
 .board-cell:hover {
     background-color: #f0f0f0;
+}
+
+#player-info {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    margin: 10px;
+}
+
+.player-div {
+    text-align: center;
+    margin: 10px;
 }
