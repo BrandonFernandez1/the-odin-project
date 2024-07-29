@@ -10,14 +10,38 @@ import lasagna from './images/popular-items/lasagna.jpg';
 import nasiLemak from './images/popular-items/nasi-lemak.jpg';
 import pastaMeatball from './images/popular-items/pasta-meatball.jpeg';
 import rotiCanai from './images/popular-items/roti-canai.jpg';
-import background from './images/popular-items/background-image.jpg';
-
-
+import background from './images/popular-items/background-image.jpg'
 
 const homePage = (function() {
     const initialize = () => {
+        createHeader();
         createCarousel();
         createPopularItems();
+    }
+
+    const createHeader = () => {
+        const header = document.createElement('nav');
+        header.classList.add('navbar', 'navbar-expand-lg', 'navbar-light', 'bg-light');
+        document.body.appendChild(header);
+
+        const navBar = document.createElement('div');
+        navBar.classList.add('collapse', 'navbar-collapse');
+        header.appendChild(navBar);
+
+        const homeButton = document.createElement('a');
+        homeButton.classList.add('nav-item', 'nav-link');
+        homeButton.textContent = 'Home';
+        navBar.appendChild(homeButton);
+
+        const menuButton = document.createElement('a');
+        menuButton.textContent = 'Menu';
+        menuButton.classList.add('nav-item', 'nav-link');
+        navBar.appendChild(menuButton);
+
+        const contactButton = document.createElement('a');
+        contactButton.textContent = 'Contact Us';
+        contactButton.classList.add('nav-item', 'nav-link');
+        navBar.appendChild(contactButton);
     }
 
     const createCarousel = () => {
@@ -60,23 +84,30 @@ const homePage = (function() {
     }
 
     const createPopularItems = () => {
-        // 1. Create container div
-        //     - Add background image of something
-        //     - Takes up another section of the page
-        // 2. Create 6 divs
-        //     - Make them circles
-        //     - Add background image of the food items
-        //     - Space evenly the bitch.
-
         const images = [corndog, grilledCheese, lasagna, nasiLemak, pastaMeatball, rotiCanai];
+        const captions = ['Corndog','Grilled Cheese','Lasagna','Nasi Lemak','Tomato Penne','Roti Canai'];
 
         const popularItemsSection = document.createElement('div');
         popularItemsSection.classList.add('popular-section');
         document.body.appendChild(popularItemsSection);
+        
+        const popularBackgroundImage = document.createElement('img');
+        popularBackgroundImage.src = background;
+        popularBackgroundImage.classList.add('background-image');
+        popularItemsSection.appendChild(popularBackgroundImage);
+
+        const popularContent = document.createElement('div');
+        popularContent.classList.add('popular-content');
+        popularItemsSection.appendChild(popularContent);
+
+        const popularItemHeader = document.createElement('div');
+        popularItemHeader.classList.add('popular-caption');
+        popularItemHeader.textContent = 'Try our popular dishes!';
+        popularContent.appendChild(popularItemHeader);
 
         const itemContainerDiv = document.createElement('div');
         itemContainerDiv.classList.add('popular-container');
-        popularItemsSection.appendChild(itemContainerDiv);
+        popularContent.appendChild(itemContainerDiv);
 
         for (let i = 0; i < images.length; i++) {
             const itemDiv = document.createElement('div');
@@ -88,12 +119,16 @@ const homePage = (function() {
             foodImage.src = images[i];
             itemDiv.appendChild(foodImage);
 
+            const captionOverlay = document.createElement('div');
+            captionOverlay.classList.add('overlay');
+            itemDiv.appendChild(captionOverlay);
+
             const itemCaption = document.createElement('div');
             itemCaption.classList.add('caption');
-            itemDiv.appendChild(itemCaption);
+            itemCaption.textContent = captions[i];
+            captionOverlay.appendChild(itemCaption);
         }
     }
-
 
     return {initialize};
 })();
