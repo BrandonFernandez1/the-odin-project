@@ -1,5 +1,6 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './style.css';
+import logo from './images/header/sk-maju.jpeg';
 import pasta from './images/carousel/pasta.jpg';
 import burger from './images/carousel/burger.jpg';
 import steak from './images/carousel/steak.jpg';
@@ -15,33 +16,36 @@ import background from './images/popular-items/background-image.jpg'
 const homePage = (function() {
     const initialize = () => {
         createHeader();
-        createCarousel();
+        //createCarousel();
         createPopularItems();
+        createReviews();
     }
 
     const createHeader = () => {
-        const header = document.createElement('nav');
-        header.classList.add('navbar', 'navbar-expand-lg', 'navbar-light', 'bg-light');
+        const header = document.createElement('header');
         document.body.appendChild(header);
 
-        const navBar = document.createElement('div');
-        navBar.classList.add('collapse', 'navbar-collapse');
+        const restaurantLogo = document.createElement('img');
+        restaurantLogo.src = logo;
+        header.appendChild(restaurantLogo);
+
+        const navBar = document.createElement('nav');
         header.appendChild(navBar);
 
-        const homeButton = document.createElement('a');
-        homeButton.classList.add('nav-item', 'nav-link');
+        const navContainer = document.createElement('ul');
+        navBar.appendChild(navContainer);
+
+        const homeButton = document.createElement('li');
         homeButton.textContent = 'Home';
-        navBar.appendChild(homeButton);
+        navContainer.appendChild(homeButton);
 
-        const menuButton = document.createElement('a');
+        const menuButton = document.createElement('li');
         menuButton.textContent = 'Menu';
-        menuButton.classList.add('nav-item', 'nav-link');
-        navBar.appendChild(menuButton);
+        navContainer.appendChild(menuButton);
 
-        const contactButton = document.createElement('a');
+        const contactButton = document.createElement('li');
         contactButton.textContent = 'Contact Us';
-        contactButton.classList.add('nav-item', 'nav-link');
-        navBar.appendChild(contactButton);
+        navContainer.appendChild(contactButton);
     }
 
     const createCarousel = () => {
@@ -130,6 +134,25 @@ const homePage = (function() {
         }
     }
 
+    const createReviews = () => {
+        const reviewContainer = document.createElement('div');
+        reviewContainer.classList.add('.review-parent');
+        document.body.appendChild(reviewContainer);
+
+        const reviewHeader = document.createElement('h1');
+        reviewHeader.textContent = 'REVIEWS FROM OUR CUSTOMERS';
+        reviewContainer.appendChild(reviewHeader);
+
+        function Review(review, stars, date){
+            this.review = review;
+            this.stars = stars;
+            this.date = date;
+        }
+
+        const firstReview = new Review( "Great location, although parking is a bit of an issue. The atmosphere was breezy and clean. Ordered a roti canai, and while it took a while to arrive, it was excellent and very satisfying to eat. The drinks weren't too sweet or watered down and hit the spot. Prices are very reasonable. Would come again!", 5, 13/7/2024);
+
+        const secondReview = new Review("Food was bland and tasted like shit. I'm never coming back to this awful establishment. Drinks tastes like straight piss and the food had the texture of nutsack. Never in my life have I wanted to flee the country this badly. Fuck this", 1, 4/6/2024);
+    }
     return {initialize};
 })();
 
