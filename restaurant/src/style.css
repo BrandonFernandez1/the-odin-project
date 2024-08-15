@@ -6,6 +6,7 @@
 
 body {
     font-family: 'Nobile';
+    background-color: grey;
 }
 
 
@@ -60,37 +61,6 @@ header img {
     width: auto;
     border-radius: 50%;
     padding: 10px;
-}
-
-.carousel-item {
-    position: relative;
-    width: 100%;
-    overflow: hidden;
-}
-
-.carousel-item::before {
-    content: "";
-    display: block;
-    padding-top: 56.25%;
-}
-
-.carousel-item .image-wrapper {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.carousel-item img {
-    max-height: 100%;
-    max-width: 100%;
-    height: auto;
-    width: auto;
-    object-fit: cover;
 }
 
 .popular-section {
@@ -199,3 +169,99 @@ header img {
     z-index: -1;
     filter: brightness(30%);
 }
+
+.star {
+    height: 30px;
+    width: 30px;
+}
+
+.grey {
+    filter: grayscale(1);
+}
+
+#reviewCarousel {
+    width: 50%;
+    height: 350px;
+}
+
+.carousel {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.carousel-inner {
+    padding: 20px;
+}
+
+#reviewCarousel button {
+    position: static;
+}
+
+.review-name,
+.review-date,
+.stars, 
+.review-text {
+    padding: 5px;
+}
+
+.review-name {
+    font-size: 24px;
+    font-weight: bold;
+    color: #ff8400;
+}
+
+.review-date {
+    font-size: 18px;
+}
+
+.review-text {
+    font-size: 20px;
+}
+
+/* .carousel-control-prev,
+.carousel-control-next {
+    bottom: 20px;
+    top: auto;
+    width: 50px;
+    height: 50px;
+}
+
+.carousel-control-prev {
+    right: 20px;
+}
+
+.carousel-control-next {
+    left: 20px;
+} */
+
+/* .carousel-item {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+}
+
+.carousel-item::before {
+    content: "";
+    display: block;
+    padding-top: 56.25%;
+}
+
+.carousel-item .image-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.carousel-item img {
+    max-height: 100%;
+    max-width: 100%;
+    height: auto;
+    width: auto;
+    object-fit: cover;
+} */
