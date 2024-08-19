@@ -2,6 +2,7 @@ import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '@popperjs/core';
 import './style.css';
+
 import logo from './images/header/sk-maju.jpeg';
 import pasta from './images/carousel/pasta.jpg';
 import burger from './images/carousel/burger.jpg';
@@ -16,14 +17,17 @@ import rotiCanai from './images/popular-items/roti-canai.jpg';
 import background from './images/popular-items/background-image.jpg';
 
 import star from './images/review/star.svg';
-
+import tandoori from './images/review/collage/tandoori.jpg';
+import maggiGoreng from './images/review/collage/maggi-goreng.jpeg';
+import nasiKandar from './images/review/collage/nasi-kandar.jpg';
+import restaurant from './images/review/collage/restaurant.jpeg';
 
 const homePage = (function() {
     const initialize = () => {
         createHeader();
         // createCarousel();
         // createPopularItems();
-        createReviews();
+        createReviewSection();
     }
 
     const createHeader = () => {
@@ -139,53 +143,6 @@ const homePage = (function() {
         }
     }
 
-    // const createReviews = () => {
-    //     const reviewContainer = document.createElement('div');
-    //     reviewContainer.classList.add('review-parent');
-    //     document.body.appendChild(reviewContainer);
-
-    //     const reviewHeader = document.createElement('h1');
-    //     reviewHeader.textContent = 'REVIEWS FROM OUR CUSTOMERS';
-    //     reviewContainer.appendChild(reviewHeader);
-
-    //     const reviews = getReviews();
-
-    //     for (let i = 0; i < reviews.length; i++) {
-    //         const review = document.createElement('div');
-    //         review.classList.add('review');
-    //         reviewContainer.appendChild(review);
-
-    //         const reviewerName = document.createElement('div');
-    //         reviewerName.textContent = reviews[i].name;
-    //         reviewerName.classList.add('review-name');
-    //         review.appendChild(reviewerName);
-
-    //         const reviewDate = document.createElement('div');
-    //         reviewDate.textContent = reviews[i].date;
-    //         reviewDate.classList.add('review-date');
-    //         review.appendChild(reviewDate);
-
-    //         const reviewStarsContainer = document.createElement('div');
-    //         reviewStarsContainer.classList.add('stars');
-    //         review.appendChild(reviewStarsContainer);
-
-    //         for (let j = 0; j < 5; j++) {
-    //             const reviewStar = document.createElement('img');
-    //             reviewStar.src = star;
-    //             reviewStar.classList.add('star');
-    //             reviewStarsContainer.appendChild(reviewStar);
-
-    //             if (j < reviews[i].stars) reviewStar.classList.add('yellow');
-    //             else reviewStar.classList.add('grey');
-    //         }
-
-    //         const reviewText = document.createElement('div');
-    //         reviewText.textContent = reviews[i].review;
-    //         reviewText.classList.add('review-text');
-    //         review.appendChild(reviewText);
-    //     }
-    // }
-
     const getReviews = () => {
         let reviews = [];
 
@@ -214,27 +171,45 @@ const homePage = (function() {
         reviewSection.classList.add('review-section');
         document.body.appendChild(reviewSection);
 
-        const imageCarousel = createReviewImageCarousel();
+        const imageCarousel = createReviewCollage();
+        console.log(imageCarousel);
         reviewSection.appendChild(imageCarousel);
 
         const reviewCarousel = createReviewCarousel();
+        console.log(reviewCarousel);
         reviewSection.appendChild(reviewCarousel);
     }
 
-    const createReviewImageCarousel = () => {
+    const createReviewCollage = () => {
         const imageContainer = document.createElement('div');
+        imageContainer.classList.add('review-collage');
 
-        const images = [];
+        const reviewCollageImages = [
+            { source: restaurant, caption: 'restaurant'},
+            { source: tandoori, caption: 'tandoori' },
+            { source: maggiGoreng, caption: 'maggi-goreng' },
+            { source: nasiKandar, caption: 'nasi-kandar' }
+        ]
+
+        reviewCollageImages.forEach((image) => {
+            const imageElement = document.createElement('img');
+            imageElement.classList.add('review-image');
+            imageElement.src = image.source;
+            imageElement.id = image.caption;
+            imageContainer.appendChild(imageElement);
+        })
+
+        return imageContainer;
     }
 
-    const createReviews = () => {
+    const createReviewCarousel = () => {
         const reviews = getReviews();
         if (reviews.length > 5) reviews.length = 5;
 
         const carouselParent = document.createElement('div');
         carouselParent.setAttribute('id', 'reviewCarousel');
         carouselParent.classList.add('carousel', 'slide');
-        document.body.appendChild(carouselParent);
+        // document.body.appendChild(carouselParent);
 
         const carouselIndicators = document.createElement('div');
         carouselIndicators.classList.add('carousel-indicators');
@@ -323,12 +298,14 @@ const homePage = (function() {
 
             return carouselControl;
         }
-
+        
         controls.forEach((control, index) => {
             const carouselControl = createCarouselControl(control);
             if (index === 0) carouselParent.prepend(carouselControl);
             else carouselParent.appendChild(carouselControl);
         });
+       
+        return carouselParent;
     }
     return {initialize};
 })();
