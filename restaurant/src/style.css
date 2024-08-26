@@ -63,6 +63,35 @@ header img {
     padding: 10px;
 }
 
+.hero {
+    height: 600px;
+    display: flex;
+    align-items: center;
+    object-fit: cover;
+    overflow: hidden;
+}
+
+.hero-text {
+    text-align: left;
+    padding: 50px;
+}
+
+.hero h1 {
+    color: white;
+    font-size: 72px;
+    font-weight: bold;
+}
+
+.hero h3 {
+    color: white;
+}
+
+.hero img {
+    object-fit: cover;
+    max-height: 100%;
+    max-width: 100%;
+}
+
 .popular-section {
     display: flex;
     align-items: center;
@@ -72,6 +101,7 @@ header img {
     overflow: hidden;
     font-family: 'Nobile';
     font-weight: bold;
+    background-color: grey;
 }
 
 .popular-content {
@@ -166,6 +196,7 @@ header img {
     height: 100%;
     width: 100%;
     object-fit: cover;
+    overflow: hidden;
     z-index: -1;
     filter: brightness(30%);
 }
@@ -190,6 +221,7 @@ header img {
 .review-collage {
     object-fit: cover;
     overflow: hidden;
+    width: 50%;
 }
 
 #reviewCarousel {

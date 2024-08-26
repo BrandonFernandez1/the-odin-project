@@ -3,6 +3,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import '@popperjs/core';
 import './style.css';
 
+import heroBackground from './images/hero/outdoor-restaurant.jpg';
+import waiter from './images/hero/waiter.jpg';
+
 import logo from './images/header/sk-maju.jpeg';
 import pasta from './images/carousel/pasta.jpg';
 import burger from './images/carousel/burger.jpg';
@@ -25,8 +28,9 @@ import restaurant from './images/review/collage/restaurant.jpeg';
 const homePage = (function() {
     const initialize = () => {
         createHeader();
+        createHero();
         // createCarousel();
-        // createPopularItems();
+        createPopularItems();
         createReviewSection();
     }
 
@@ -55,6 +59,34 @@ const homePage = (function() {
         const contactButton = document.createElement('li');
         contactButton.textContent = 'Contact Us';
         navContainer.appendChild(contactButton);
+    }
+
+    const createHero = () => {
+        const heroContainer = document.createElement('section');
+        heroContainer.classList.add('hero');
+        document.body.appendChild(heroContainer);
+
+        const backgroundImage = document.createElement('img');
+        backgroundImage.classList.add('background-image');
+        backgroundImage.src = waiter;
+        heroContainer.appendChild(backgroundImage);
+
+        // const waiterImage = document.createElement('img');
+        // waiterImage.classList.add('waiter');
+        // waiterImage.src = ;
+        // heroContainer.appendChild(waiterImage);
+
+        const heroTextContainer = document.createElement('div');
+        heroTextContainer.classList.add('hero-text');
+        heroContainer.prepend(heroTextContainer);
+
+        const heroHeader = document.createElement('h1');
+        heroHeader.textContent = "SMOKE OUT BACK";
+        heroTextContainer.appendChild(heroHeader);
+
+        const heroCaption = document.createElement('h3')
+        heroCaption.textContent = 'Try our steaks';
+        heroTextContainer.appendChild(heroCaption);
     }
 
     const createCarousel = () => {
@@ -98,7 +130,7 @@ const homePage = (function() {
 
     const createPopularItems = () => {
         const images = [corndog, grilledCheese, lasagna, nasiLemak, pastaMeatball, rotiCanai];
-        const captions = ['Corndog','Grilled Cheese','Lasagna','Nasi Lemak','Tomato Penne','Roti Canai'];
+        const captions = ['Corndogs','Grilled Cheese','Lasagna','Nasi Lemak','Tomato Penne','Roti Canai'];
 
         const popularItemsSection = document.createElement('div');
         popularItemsSection.classList.add('popular-section');
@@ -171,9 +203,9 @@ const homePage = (function() {
         reviewSection.classList.add('review-section');
         document.body.appendChild(reviewSection);
 
-        const imageCarousel = createReviewCollage();
-        console.log(imageCarousel);
-        reviewSection.appendChild(imageCarousel);
+        // const imageCarousel = createReviewCollage();
+        // console.log(imageCarousel);
+        // reviewSection.appendChild(imageCarousel);
 
         const reviewCarousel = createReviewCarousel();
         console.log(reviewCarousel);
