@@ -3,5 +3,4 @@ import menu from './menu.js';
 
 document.addEventListener('DOMContentLoaded', () => {
     homePage.initialize();
-    console.log('Hello');
-})
+});

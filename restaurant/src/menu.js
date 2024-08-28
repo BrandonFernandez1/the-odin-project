@@ -52,6 +52,11 @@ const menu = (function() {
 
         return menuItems;
     }
+
+    const createMenu = () => {
+        const menuHeader = document.createElement('h1');
+        menuHeader.textContent = 'CHECK OUT OUR MENU';
+    }
     
     return { initialize };
 })
