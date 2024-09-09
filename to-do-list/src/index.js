@@ -30,9 +30,11 @@ const sidebar = (function() {
         const cancelButton = document.querySelector('#cancel-project');
 
         openDialog.addEventListener('click', () => {
+            confirmButton.textContent = 'Confirm';
             projectDialogElement.showModal();
-
         })
+
+        let isEditMode = false;
 
         confirmButton.addEventListener('click', () => {
             const projectName = projectInput.value;
@@ -40,7 +42,10 @@ const sidebar = (function() {
             if (projectName) {
                 const newProject = createProject(projectName);
                 projects.push(newProject);
-                appendProject(newProject);
+                const index = projects.length - 1;
+
+                if (!isEditMode)
+                    appendProject(newProject, index);
 
                 //TODO: editProject function
                 // if (isEditMode == false) appendProject(newProject);
@@ -57,7 +62,7 @@ const sidebar = (function() {
             projectInput.value = '';
         })
 
-        const appendProject = (project) => {
+        const appendProject = (project, index) => {
             const projectSection = document.querySelector('.projects');
             const projectList = document.querySelector('.project-list');
             projectSection.appendChild(projectList);
@@ -71,17 +76,29 @@ const sidebar = (function() {
 
             const editIcon = document.createElement('img');
             editIcon.classList.add('icon')
+            editIcon.setAttribute('data-index', index);
             editIcon.src = edit;
             iconContainer.appendChild(editIcon);
 
             const deleteIcon = document.createElement('img');
             deleteIcon.classList.add('icon');
+            deleteIcon.setAttribute('data-index', index);
             deleteIcon.src = trash;
             iconContainer.appendChild(deleteIcon);
 
             editIcon.addEventListener('click', () => {
-                //TODO: Open the modal but don't append, only change the text content.
+                confirmButton.textContent = 'Edit';
+                projectDialogElement.showModal();
             })
+        }
+
+        const editProjectName = () => { 
+            const newName = projectInput.value;
+
+            if (newName) {
+                projects[index].name = newName;
+                projectItem.textContent = newName;
+            }
         }
     }
 
