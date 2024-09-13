@@ -32,8 +32,9 @@ header {
     display: flex;
     flex-direction: row;
     height: 100%;
-    padding: 15px;
 }
+
+
 
 h2 {
     font-size: 30px;
@@ -43,6 +44,7 @@ h2 {
     min-width: 170px;
     width: 20%;
     border: 1px solid rgb(194, 194, 194);
+    padding: 15px;
 }
 
 .list-items {
@@ -71,4 +73,35 @@ h2 {
 .icon:hover {
     transform: scale(1.2);
     color: #3498db;
+    cursor: pointer;
+}
+
+#project-dialog {
+    border-radius: 8px;
+    border: 0;
+    padding: 25px;
+}
+
+#project-dialog h2 {
+    font-weight: bold;
+}
+
+#project-dialog button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin: 5px;
+    font-family: 'Raleway';
+    font-weight: bold;
+}
+
+#project-dialog #project-confirm-button {
+    background-color: #4CAF50;
+}
+
+#project-dialog #project-confirm-button:hover {
+    background-color: #45a049;
 }
