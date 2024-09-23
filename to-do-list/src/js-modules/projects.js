@@ -109,7 +109,7 @@ const projectModule = (function() {
         }
     }
 
-    return { initialize };
+    return { initialize, projects };
 })();
 
 export default projectModule;
