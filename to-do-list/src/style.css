@@ -41,13 +41,14 @@ h2 {
 }
 
 .sidebar {
-    min-width: 170px;
+    min-width: 220px;
     width: 20%;
     border: 1px solid rgb(194, 194, 194);
     padding: 15px;
 }
 
-.list-items {
+.list-section {
+    margin: 20px;
     width: 80%;
 }
 
@@ -66,7 +67,7 @@ h2 {
 .icon {
     aspect-ratio: 1;
     height: 25px;
-    padding: 5px;
+    margin: 5px;
     transition: transform 0.3s ease, color 0.3s ease;
 }
 
@@ -104,4 +105,14 @@ h2 {
 
 #project-dialog #project-confirm-button:hover {
     background-color: #45a049;
+}
+
+.accordion-item {
+    width: 100%;
+}
+
+.accordion-body {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
 }

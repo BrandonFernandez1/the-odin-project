@@ -106,10 +106,13 @@ const projectModule = (function() {
             projects[index].name = newName;
             //Only changing the text node! .textContent will replace all child nodes.
             nameElement.childNodes[0].nodeValue = newName;
-        }
+        } 
     }
 
-    return { initialize, projects };
+    const getProjects = () => projects;    
+    const setProjects = () => projects = newProjects;
+
+    return { initialize, getProjects, setProjects };
 })();
 
 export default projectModule;
