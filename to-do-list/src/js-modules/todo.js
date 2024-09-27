@@ -1,8 +1,6 @@
 import projectModule from "./projects";
 
-const todoModule = (function() {
-    let projects = projectModule.getProjects();
-    
+const todoModule = (function() {    
     const initialize = () => {
         addItem();
     }
@@ -40,7 +38,7 @@ const todoModule = (function() {
                 todoPriority.classList.remove('input-error');
             }
 
-            if (todoDueDate.value === '' || isNaN(new Date(todoDueDate).getTime())) {
+            if (todoDueDate.value === '' || isNaN(new Date(todoDueDate.value))) {
                 isValid = false;
                 todoDueDate.classList.add('input-error');
                 console.log('due date error');
@@ -125,11 +123,15 @@ const todoModule = (function() {
 
         confirmButton.addEventListener('click', () => {
             if (validateInputs()) {
+                let projects = projectModule.getProjects();
+                console.log(projects);
+                console.log(typeof(projects));
+                //Need a way to determine which project is selected to push new todo list items to...
                 const todoItem = createTodo(todoTitle.value, todoPriority.value, todoDueDate.value, todoDescription.value);
-                projects.todos.push(todoItem);
-                index = projects.todos.length - 1;
-                const todoElements = appendTodo(todoItem, index);
-                document.body.appendChild(todoElements);
+                // projects.todos.push(todoItem);
+                // index = projects.todos.length - 1;
+                // const todoElements = appendTodo(todoItem, index);
+                // document.body.appendChild(todoElements);
                 console.log('hello');
             } else console.log('goodbye');
         })
@@ -141,3 +143,6 @@ const todoModule = (function() {
 })();
 
 export default todoModule;
+
+let projects = projectModule.getProjects();
+console.log(projects);
