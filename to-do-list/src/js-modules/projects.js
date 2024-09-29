@@ -6,6 +6,7 @@ const projectModule = (function() {
     const initialize = () => {
         addPlusIcon();
         addProject();
+        // selectProject();
     }
 
     const addPlusIcon = () => {
@@ -20,7 +21,11 @@ const projectModule = (function() {
     const projects = [];
 
     const createProject = (name, todos = []) => {
-        return { name, todos };
+        return {
+            name,
+            todos,
+            selected: false
+        }
     } 
 
     const addProject = () => {
@@ -70,16 +75,21 @@ const projectModule = (function() {
             projectSection.appendChild(projectList);
             
             const projectItem = document.createElement('li');
-            projectItem.textContent = project.name;
             //Index used here to link to position in projects array
             projectItem.setAttribute('data-index', index);
             projectList.appendChild(projectItem);
+
+            const projectTitleWrapper = document.createElement('div');
+            projectTitleWrapper.classList.add('project-title');
+            projectTitleWrapper.id = `project-${index}-title`;
+            projectTitleWrapper.textContent = project.name;
+            projectItem.appendChild(projectTitleWrapper);
 
             const iconContainer = document.createElement('div');
             projectItem.appendChild(iconContainer);
 
             const editIcon = document.createElement('img');
-            editIcon.classList.add('icon')
+            editIcon.classList.add('icon');
             editIcon.src = edit;
             iconContainer.appendChild(editIcon);
 
@@ -99,18 +109,37 @@ const projectModule = (function() {
                 projectItem.remove();
                 projects.splice(index, 1);
             })
+
+            projectTitleWrapper.addEventListener('click', () => {
+                for (let i = 0; i < projects.length; i++) {
+                    projects[i].selected = false;
+                }         
+                project.selected = true;
+
+                
+                const allProjectWrappers = document.querySelectorAll('.project-title');
+
+                for (let i = 0; i < allProjectWrappers.length; i++) {
+                    if (allProjectWrappers[i].classList.contains('selected')) {
+                        allProjectWrappers[i].classList.remove('selected');
+                    }
+                }
+                projectTitleWrapper.classList.add('selected');
+            })
         }
 
         const editProject = (newName, index) => {
-            const nameElement = document.querySelector(`[data-index="${index}"]`);
+            const nameElement = document.querySelector(`#project-${index}-title`);
             projects[index].name = newName;
-            //Only changing the text node! .textContent will replace all child nodes.
-            nameElement.childNodes[0].nodeValue = newName;
+            nameElement.textContent = newName;
         } 
     }
 
-    const getProjects = () => projects;    
-    const setProjects = () => projects = newProjects;
+    const getProjects = () => projects;
+        
+    const setProjects = (newProjects) => {
+        projects = newProjects;
+    }
 
     return { initialize, getProjects, setProjects };
 })();

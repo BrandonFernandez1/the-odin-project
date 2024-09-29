@@ -72,7 +72,7 @@ const todoModule = (function() {
             accordionButton.classList.add('accordion-button');
             accordionButton.setAttribute('type', 'button');
             accordionButton.setAttribute('data-bs-toggle', 'collapse');
-            accordionButton.setAttribute('data-bs-target', `collapse-${index}`);
+            accordionButton.setAttribute('data-bs-target', `#collapse-${index}`);
             accordionButton.setAttribute('aria-expanded', 'true');
             accordionButton.setAttribute('aria-controls', `collapse-${index}`);
             accordionButton.textContent = item.title;
@@ -125,15 +125,35 @@ const todoModule = (function() {
             if (validateInputs()) {
                 let projects = projectModule.getProjects();
                 console.log(projects);
-                console.log(typeof(projects));
-                //Need a way to determine which project is selected to push new todo list items to...
+
                 const todoItem = createTodo(todoTitle.value, todoPriority.value, todoDueDate.value, todoDescription.value);
-                // projects.todos.push(todoItem);
-                // index = projects.todos.length - 1;
-                // const todoElements = appendTodo(todoItem, index);
-                // document.body.appendChild(todoElements);
-                console.log('hello');
-            } else console.log('goodbye');
+                let index;
+
+                for (let i = 0; i < projects.length; i++) {
+                    if (projects[i].selected == true) {
+                        projects[i].todos.push(todoItem);
+                        index = i;
+                    }
+                }
+                const containerDiv = document.querySelector('.list-items');
+                const todoDOM = appendTodo(todoItem, index);
+                
+                todoDialog.close();
+                todoTitle.value = '';
+                todoPriority.value = '';
+                todoDueDate.value = '';
+                todoDescription.value = '';
+            } else {
+                console.log('goodbye');
+            } 
+        })
+
+        cancelButton.addEventListener('click', () => {
+            todoDialog.close();
+            todoTitle.value = '';
+            todoPriority.value = '';
+            todoDueDate.value = '';
+            todoDescription.value = '';
         })
     }
 
