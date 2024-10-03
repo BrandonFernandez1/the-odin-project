@@ -11,3 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
     projectModule.initialize();
     todoModule.initialize();
 })
+
+document.querySelector('#print-projects').addEventListener('click', () => {
+    console.log(projectModule.getProjects());
+})

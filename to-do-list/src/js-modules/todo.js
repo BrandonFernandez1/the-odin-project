@@ -9,9 +9,76 @@ const todoModule = (function() {
         return { title, priority, dueDate, description };
     }
 
+    const appendTodoItems = (array) => {
+        const todoContainer = document.querySelector('.accordion');
+        const existingElements = document.querySelectorAll('.accordion-item');
+        existingElements.forEach(element => element.remove());
+
+        for (let i = 0; i < array.length; i++) {
+            const accordionItem = document.createElement('div');
+            accordionItem.classList.add('accordion-item');
+            todoContainer.appendChild(accordionItem);
+
+            const accordionHeader = document.createElement('h2');
+            accordionHeader.classList.add('accordion-header');
+            accordionHeader.id = `header-${i}`;
+            accordionItem.appendChild(accordionHeader);
+
+            const accordionButton = document.createElement('button');
+            accordionButton.classList.add('accordion-button');
+            accordionButton.setAttribute('type', 'button');
+            accordionButton.setAttribute('data-bs-toggle', 'collapse');
+            accordionButton.setAttribute('data-bs-target', `#collapse-${i}`);
+            accordionButton.setAttribute('aria-expanded', 'true');
+            accordionButton.setAttribute('aria-controls', `collapse-${i}`);
+            accordionButton.textContent = array[i].title;
+            accordionHeader.appendChild(accordionButton);
+
+            const accordionBodyContainer = document.createElement('div');
+            accordionBodyContainer.id = `collapse-${i}`;
+            accordionBodyContainer.classList.add('accordion-collapse', 'collapse');
+            accordionBodyContainer.setAttribute('aria-labelledby', `heading-${i}`);
+            accordionItem.appendChild(accordionBodyContainer);
+
+            const accordionBody = document.createElement('div');
+            accordionBody.classList.add('accordion-body');
+            accordionBodyContainer.appendChild(accordionBody);
+
+            const priorityHeader = document.createElement('div');
+            priorityHeader.textContent = 'Priority';
+            priorityHeader.classList.add('todo-header', 'priority');
+            accordionBody.appendChild(priorityHeader);
+
+            const dueDateHeader = document.createElement('div');
+            dueDateHeader.textContent = 'Due Date';
+            dueDateHeader.classList.add('todo-header', 'due-date');
+            accordionBody.appendChild(dueDateHeader);
+
+            const descriptionHeader = document.createElement('div');
+            descriptionHeader.textContent = 'Description';
+            descriptionHeader.classList.add('todo-header', 'description');
+            accordionBody.appendChild(descriptionHeader);
+
+            const priority = document.createElement('div');
+            priority.textContent = array[i].priority;
+            priority.classList.add('todo-priority', array[i].priority);
+            accordionBody.appendChild(priority);
+
+            const dueDate = document.createElement('div');
+            dueDate.classList.add('todo-due-date');
+            dueDate.textContent = array[i].dueDate;
+            accordionBody.appendChild(dueDate);
+            
+            const description = document.createElement('div');
+            description.classList.add('todo-description');
+            description.textContent = array[i].description;
+            accordionBody.appendChild(description);
+        }
+    }
+
+
     const addItem = () => {
         const todoDialog = document.querySelector('#todo-dialog');
-
         const todoTitle = document.querySelector('#title');
         const todoPriority = document.querySelector('#priority');
         const todoDueDate = document.querySelector('#due-date');
@@ -33,7 +100,7 @@ const todoModule = (function() {
             if (todoPriority === '') {
                 isValid = false;
                 todoPriority.classList.add('input-error');
-                console.log('priority error')
+                console.log('priority error');
             } else {
                 todoPriority.classList.remove('input-error');
             }
@@ -56,96 +123,25 @@ const todoModule = (function() {
             return isValid;
         }
 
-        const appendTodo = (item, index) => {
-            const accordionParent = document.querySelector('.accordion');
-
-            const accordionItem = document.createElement('div');
-            accordionItem.classList.add('accordion-item');
-            accordionParent.appendChild(accordionItem);
-
-            const accordionHeader = document.createElement('h2');
-            accordionHeader.classList.add('accordion-header');
-            accordionHeader.id = `header-${index}`;
-            accordionItem.appendChild(accordionHeader);
-
-            const accordionButton = document.createElement('button');
-            accordionButton.classList.add('accordion-button');
-            accordionButton.setAttribute('type', 'button');
-            accordionButton.setAttribute('data-bs-toggle', 'collapse');
-            accordionButton.setAttribute('data-bs-target', `#collapse-${index}`);
-            accordionButton.setAttribute('aria-expanded', 'true');
-            accordionButton.setAttribute('aria-controls', `collapse-${index}`);
-            accordionButton.textContent = item.title;
-            accordionHeader.appendChild(accordionButton);
-
-            const accordionBodyContainer = document.createElement('div');
-            accordionBodyContainer.id = `collapse-${index}`;
-            accordionBodyContainer.classList.add('accordion-collapse', 'collapse');
-            accordionBodyContainer.setAttribute('aria-labelledby', `heading-${index}`);
-            accordionItem.appendChild(accordionBodyContainer);
-
-            const accordionBody = document.createElement('div');
-            accordionBody.classList.add('accordion-body');
-            accordionBodyContainer.appendChild(accordionBody);
-
-            const priorityHeader = document.createElement('div');
-            priorityHeader.textContent = 'Priority';
-            priorityHeader.classList.add('todo-header');
-            accordionBody.appendChild(priorityHeader);
-
-            const dueDateHeader = document.createElement('div');
-            dueDateHeader.textContent = 'Due Date';
-            dueDateHeader.classList.add('todo-header');
-            accordionBody.appendChild(dueDateHeader);
-
-            const descriptionHeader = document.createElement('div');
-            descriptionHeader.textContent = 'Description';
-            descriptionHeader.classList.add('todo-header');
-            accordionBody.appendChild(descriptionHeader);
-
-            const priority = document.createElement('div');
-            priority.textContent = item.priority;
-            priority.classList.add('todo-priority', item.priority);
-            accordionBody.appendChild(priority);
-
-            const dueDate = document.createElement('div');
-            dueDate.classList.add('todo-due-date');
-            dueDate.textContent = item.dueDate;
-            accordionBody.appendChild(dueDate);
-            
-            const description = document.createElement('div');
-            description.classList.add('todo-description');
-            description.textContent = item.description;
-            accordionBody.appendChild(description);
-
-            return accordionParent;
-        }
-
         confirmButton.addEventListener('click', () => {
             if (validateInputs()) {
                 let projects = projectModule.getProjects();
-                console.log(projects);
-
                 const todoItem = createTodo(todoTitle.value, todoPriority.value, todoDueDate.value, todoDescription.value);
-                let index;
 
                 for (let i = 0; i < projects.length; i++) {
                     if (projects[i].selected == true) {
                         projects[i].todos.push(todoItem);
-                        index = i;
+                        appendTodoItems(projects[i].todos);
                     }
                 }
-                const containerDiv = document.querySelector('.list-items');
-                const todoDOM = appendTodo(todoItem, index);
-                
+    
                 todoDialog.close();
                 todoTitle.value = '';
                 todoPriority.value = '';
                 todoDueDate.value = '';
                 todoDescription.value = '';
-            } else {
-                console.log('goodbye');
-            } 
+            }
+            console.log("Hello");
         })
 
         cancelButton.addEventListener('click', () => {
@@ -157,12 +153,7 @@ const todoModule = (function() {
         })
     }
 
-
-
-    return { initialize };
+    return { initialize, appendTodoItems };
 })();
 
 export default todoModule;
-
-let projects = projectModule.getProjects();
-console.log(projects);

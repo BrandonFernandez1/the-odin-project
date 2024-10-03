@@ -1,3 +1,5 @@
+import todoModule from './todo';
+
 import plus from '../images/svgs/plus.svg';
 import edit from '../images/svgs/edit.svg';
 import trash from '../images/svgs/trash.svg';
@@ -115,7 +117,6 @@ const projectModule = (function() {
                     projects[i].selected = false;
                 }         
                 project.selected = true;
-
                 
                 const allProjectWrappers = document.querySelectorAll('.project-title');
 
@@ -125,6 +126,9 @@ const projectModule = (function() {
                     }
                 }
                 projectTitleWrapper.classList.add('selected');
+
+                //Function to populate the todos for this project
+                todoModule.appendTodoItems(project.todos);
             })
         }
 
@@ -136,12 +140,8 @@ const projectModule = (function() {
     }
 
     const getProjects = () => projects;
-        
-    const setProjects = (newProjects) => {
-        projects = newProjects;
-    }
 
-    return { initialize, getProjects, setProjects };
+    return { initialize, getProjects };
 })();
 
 export default projectModule;
