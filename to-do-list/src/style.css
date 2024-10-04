@@ -13,6 +13,10 @@ body {
     flex-direction: row;
 }
 
+.hidden {
+    display: none;
+}
+
 header {
     background-color: #1e90ff;
     font-size: 60px;
@@ -34,14 +38,12 @@ header {
     height: 100%;
 }
 
-
-
 h2 {
     font-size: 30px;
 }
 
 .sidebar {
-    min-width: 220px;
+    min-width: 250px;
     width: 20%;
     border: 1px solid rgb(194, 194, 194);
     padding: 15px;
@@ -50,6 +52,20 @@ h2 {
 .list-section {
     margin: 20px;
     width: 80%;
+    position: relative;
+}
+
+#open-todo-dialog {
+    display: flex;
+    flex-direction: row;
+    position: absolute;
+    align-items: center;
+    top: 0;
+    right: 0;
+}
+
+#open-todo-dialog h5 {
+    margin: 0;
 }
 
 .project-list {

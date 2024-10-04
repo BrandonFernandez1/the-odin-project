@@ -15,3 +15,4 @@ document.addEventListener('DOMContentLoaded', () => {
 document.querySelector('#print-projects').addEventListener('click', () => {
     console.log(projectModule.getProjects());
 })
+

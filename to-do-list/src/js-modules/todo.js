@@ -153,7 +153,7 @@ const todoModule = (function() {
         })
     }
 
-    return { initialize, appendTodoItems };
+    return { initialize, createTodo, appendTodoItems };
 })();
 
 export default todoModule;

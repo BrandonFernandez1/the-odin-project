@@ -8,7 +8,6 @@ const projectModule = (function() {
     const initialize = () => {
         addPlusIcon();
         addProject();
-        // selectProject();
     }
 
     const addPlusIcon = () => {
@@ -18,6 +17,11 @@ const projectModule = (function() {
         plusSvg.src = plus;
         plusSvg.id = 'create-new-project';
         projectHeader.appendChild(plusSvg);
+
+        const addTodoItem = document.createElement('img');
+        addTodoItem.src = plus;
+        addTodoItem.classList.add('icon');
+        document.querySelector('#open-todo-dialog').appendChild(addTodoItem);
     }
 
     const projects = [];
@@ -127,6 +131,10 @@ const projectModule = (function() {
                 }
                 projectTitleWrapper.classList.add('selected');
 
+                const emptyMessage = document.querySelector('.empty-list');
+                if (project.todos.length > 0) emptyMessage.classList.remove('hidden');
+                else emptyMessage.classList.add('hidden');
+
                 //Function to populate the todos for this project
                 todoModule.appendTodoItems(project.todos);
             })
@@ -136,12 +144,12 @@ const projectModule = (function() {
             const nameElement = document.querySelector(`#project-${index}-title`);
             projects[index].name = newName;
             nameElement.textContent = newName;
-        } 
+        }
     }
 
-    const getProjects = () => projects;
+    const getProjects = () => projects;   
 
-    return { initialize, getProjects };
+    return { initialize, createProject, getProjects };
 })();
 
 export default projectModule;
