@@ -123,6 +123,10 @@ const todoModule = (function() {
             return isValid;
         }
 
+        document.querySelector('.add-todo').addEventListener('click', () => {
+            todoDialog.showModal();
+        })
+
         confirmButton.addEventListener('click', () => {
             if (validateInputs()) {
                 let projects = projectModule.getProjects();
@@ -133,6 +137,11 @@ const todoModule = (function() {
                         projects[i].todos.push(todoItem);
                         appendTodoItems(projects[i].todos);
                     }
+                }
+
+                const emptyMessage = document.querySelector('.empty-list');
+                if (!emptyMessage.classList.contains('hidden')) {
+                    emptyMessage.classList.add('hidden');
                 }
     
                 todoDialog.close();

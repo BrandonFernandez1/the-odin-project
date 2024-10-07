@@ -21,7 +21,8 @@ const projectModule = (function() {
         const addTodoItem = document.createElement('img');
         addTodoItem.src = plus;
         addTodoItem.classList.add('icon');
-        document.querySelector('#open-todo-dialog').appendChild(addTodoItem);
+        addTodoItem.id = 'create-new-todo';
+        document.querySelector('.add-todo').appendChild(addTodoItem);
     }
 
     const projects = [];
@@ -42,6 +43,7 @@ const projectModule = (function() {
         const cancelButton = document.querySelector('#project-cancel-button');
 
         let editMode = false;
+        let projectIndexToEdit;
 
         createNewProjectButton.addEventListener('click', () => {
             editMode = false;
@@ -61,8 +63,7 @@ const projectModule = (function() {
                     index = projects.length - 1;
                     appendProject(newProject, index);
                 } else {
-                    index = projects.length - 1;
-                    editProject(projectName, index);
+                    editProject(projectName, projectIndexToEdit);
                 }
                 
                 projectDialogElement.close();
@@ -106,24 +107,27 @@ const projectModule = (function() {
 
             editIcon.addEventListener('click', () => {
                 editMode = true;
+                projectIndexToEdit = index;
                 document.querySelector('#project-dialog-title').textContent = 'Edit Project Name';
                 confirmButton.textContent = 'Edit';
                 projectDialogElement.showModal();
             })
 
             deleteIcon.addEventListener('click', () => {
+                //Reset the page... how??????
                 projectItem.remove();
                 projects.splice(index, 1);
             })
 
             projectTitleWrapper.addEventListener('click', () => {
+                checkProjectsAndTodos(project);
+
                 for (let i = 0; i < projects.length; i++) {
                     projects[i].selected = false;
                 }         
                 project.selected = true;
                 
                 const allProjectWrappers = document.querySelectorAll('.project-title');
-
                 for (let i = 0; i < allProjectWrappers.length; i++) {
                     if (allProjectWrappers[i].classList.contains('selected')) {
                         allProjectWrappers[i].classList.remove('selected');
@@ -131,12 +135,14 @@ const projectModule = (function() {
                 }
                 projectTitleWrapper.classList.add('selected');
 
-                const emptyMessage = document.querySelector('.empty-list');
-                if (project.todos.length > 0) emptyMessage.classList.remove('hidden');
-                else emptyMessage.classList.add('hidden');
-
-                //Function to populate the todos for this project
                 todoModule.appendTodoItems(project.todos);
+
+                const addItemButton = document.querySelector('.add-todo');
+                if (addItemButton.classList.contains('hidden')) {
+                    addItemButton.classList.remove('hidden');
+                }
+
+                document.querySelector('.project-title-header').textContent = project.name;
             })
         }
 
@@ -144,6 +150,16 @@ const projectModule = (function() {
             const nameElement = document.querySelector(`#project-${index}-title`);
             projects[index].name = newName;
             nameElement.textContent = newName;
+        }
+    }
+
+    const checkProjectsAndTodos = (project) => {
+        const emptyMessage = document.querySelector('.empty-list');
+
+        if (project.todos.length < 1) {
+            emptyMessage.classList.remove('hidden');
+        } else {
+            emptyMessage.classList.add('hidden');
         }
     }
 
